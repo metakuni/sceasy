@@ -195,7 +195,7 @@ loom2sce <- function(inFile, outFile = NULL, main_layer = NULL, main_layer_name 
     
     return(misc)
 }
-anndata2seurat <- function(inFile, outFile = NULL, main_layer = 'counts', assay = 'RNA', use_seurat = FALSE, lzf = FALSE) {
+anndata2seurat <- function(inFile, outFile = NULL, main_layer = 'counts', assay = 'RNA', use_seurat = FALSE, lzf = FALSE, target_uns_keys = NULL) {
     main_layer <- match.arg(main_layer, c('counts', 'data', 'scale.data'))
     inFile <- path.expand(inFile)
 
