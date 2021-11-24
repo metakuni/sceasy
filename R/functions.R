@@ -307,7 +307,7 @@ anndata2seurat <- function(inFile, outFile = NULL, main_layer = 'counts', assay 
         }
     }
 
-    srt@misc <- .uns2misc(ad)
+    srt@misc <- .uns2misc(ad, target_uns_keys = target_uns_keys)
 
     if (!is.null(outFile)) saveRDS(object = srt, file = outFile)
 
