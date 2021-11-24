@@ -184,13 +184,17 @@ loom2sce <- function(inFile, outFile = NULL, main_layer = NULL, main_layer_name 
     return(var_df)
 }
 
-.uns2misc <- function(ad_pd) {
-    accepted_uns_keys <- c('schema_version', 'title', 'X_normalization', 'batch_condition', 'default_embedding', 'X_approximate_distribution')
-    uns_keys <- intersect(accepted_uns_keys, reticulate::py_to_r(ad_pd$uns_keys()))
-    misc <- sapply(uns_keys, function(x) reticulate::py_to_r(ad_pd$uns[x]), simplify = FALSE, USE.NAMES = TRUE)
+.uns2misc <- function(ad_pd, target_uns_keys = NULL) {
+    uns_keys <- intersect(target_uns_keys, reticulate::py_to_r(ad_pd$uns_keys()))
+    
+    if (length (uns_keys) > 0) {
+       misc <- sapply(uns_keys, function(x) reticulate::py_to_r(ad_pd$uns[x]), simplify = FALSE, USE.NAMES = TRUE)
+    } else {
+      misc <- list()
+    }
+    
     return(misc)
 }
-
 anndata2seurat <- function(inFile, outFile = NULL, main_layer = 'counts', assay = 'RNA', use_seurat = FALSE, lzf = FALSE) {
     main_layer <- match.arg(main_layer, c('counts', 'data', 'scale.data'))
     inFile <- path.expand(inFile)
