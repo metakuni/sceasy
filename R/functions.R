@@ -187,7 +187,7 @@ loom2sce <- function(inFile, outFile = NULL, main_layer = NULL, main_layer_name 
 .uns2misc <- function(ad_pd, target_uns_keys = NULL) {
     uns_keys <- intersect(target_uns_keys, reticulate::py_to_r(ad_pd$uns_keys()))
     
-    if (length (uns_keys) > 0) {
+    if (length(uns_keys) > 0) {
        misc <- sapply(uns_keys, function(x) reticulate::py_to_r(ad_pd$uns[x]), simplify = FALSE, USE.NAMES = TRUE)
     } else {
       misc <- list()
